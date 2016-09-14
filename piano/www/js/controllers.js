@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 .controller('InicioCtrl', function($scope, $stateParams, $state) {
 
@@ -23,9 +23,31 @@ angular.module('starter.controllers', [])
   
   };
 })
-.controller('JuegoCtrl', function($scope, $stateParams) {
+.controller('JuegoCtrl', function($scope, $stateParams, $cordovaNativeAudio) {
+    try
+    {
+      $cordovaNativeAudio
+      .preloadSimple('vaca', 'audio/correcto.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+    }
+    catch(error)
+    {
+      console.log("la pc no suena");
+    }
 
   $scope.Vaca = function(){
+    try 
+    {
+      $cordovaNativeAudio.play('correcto');
+    }
+    catch(error)
+    {
+      console.log("la pc no suena");
+    }
     console.log("hace ruido de vaca");
   }
 
