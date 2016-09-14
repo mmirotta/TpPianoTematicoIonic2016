@@ -23,15 +23,71 @@ angular.module('starter.controllers', ['ngCordova'])
   
   };
 })
-.controller('JuegoCtrl', function($scope, $stateParams, $cordovaNativeAudio) {
+.controller('JuegoCtrl', function($scope, $stateParams, $cordovaNativeAudio, $cordovaFile) {
+    $scope.usuario = JSON.parse($stateParams.usuario);
+
     try
     {
       $cordovaNativeAudio
-      .preloadSimple('vaca', 'audio/correcto.mp3')
+      .preloadSimple('vaca', 'audios/vaca.mp3')
       .then(function (msg) {
         console.log(msg);
       }, function (error) {
         alert(error);
+      });
+
+      $cordovaNativeAudio
+      .preloadSimple('oveja', 'audios/oveja.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+
+      $cordovaNativeAudio
+      .preloadSimple('caballo', 'audios/caballo.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+
+      $cordovaNativeAudio
+      .preloadSimple('cerdo', 'audios/cerdo.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+
+      $cordovaNativeAudio
+      .preloadSimple('gallo', 'audios/gallo.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+
+      $cordovaNativeAudio
+      .preloadSimple('pato', 'audios/pato.mp3')
+      .then(function (msg) {
+        console.log(msg);
+      }, function (error) {
+        alert(error);
+      });
+
+      $cordovaFile.createDir(cordova.file.dataDirectory, "docs/" + $scope.usuario.nombre, false)
+      .then(function (success) {
+        // success
+      }, function (error) {
+        // error
+      });
+
+      $cordovaFile.createFile(cordova.file.dataDirectory, "nuevo.txt", true)
+      .then(function (success) {
+        // success
+      }, function (error) {
+        // error
       });
     }
     catch(error)
@@ -42,33 +98,73 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.Vaca = function(){
     try 
     {
-      $cordovaNativeAudio.play('correcto');
+      $cordovaNativeAudio.play('vaca');
+      $cordovaFile.writeExistingFile(cordova.file.dataDirectory, "nuevo.txt", "vaca-")
+      .then(function (success) {
+        // success
+      }, function (error) {
+        // error
+      });
     }
     catch(error)
     {
       console.log("la pc no suena");
     }
-    console.log("hace ruido de vaca");
   }
 
   $scope.Pato = function(){
-    console.log("hace ruido de pato");
+    try 
+    {
+      $cordovaNativeAudio.play('pato');
+    }
+    catch(error)
+    {
+      console.log("la pc no suena");
+    }
   }
 
   $scope.Oveja = function(){
-    console.log("hace ruido de oveja");
+    try 
+    {
+      $cordovaNativeAudio.play('oveja');
+    }
+    catch(error)
+    {
+      console.log("la pc no suena");
+    }
   }
 
   $scope.Caballo = function(){
-    console.log("hace ruido de caballo");
+    try 
+    {
+      $cordovaNativeAudio.play('caballo');
+    }
+    catch(error)
+    {
+      console.log("la pc no suena");
+    }
   }
 
   $scope.Cerdo = function(){
-    console.log("hace ruido de cerdo");
+    try 
+    {
+      $cordovaNativeAudio.play('cerdo');
+    }
+    catch(error)
+    {
+      console.log("la pc no suena");
+    }
   }
 
-  $scope.Perro = function(){
-    console.log("hace ruido de Perro");
+  $scope.Gallo = function(){
+    try 
+    {
+      $cordovaNativeAudio.play('gallo');
+    }
+    catch(error)
+    {
+      console.log("la pc no suena");
+    }
   }
 })
 
