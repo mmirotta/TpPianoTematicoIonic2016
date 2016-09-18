@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ngCordova','ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -78,7 +78,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'PerfilCtrl'
       }
     }
-  });
+  })
+
+  .state('tab.eleccion', {
+    url: '/eleccion/:usuario',
+    views: {
+      'tab-inicio': {
+        templateUrl: 'templates/tab-eleccion.html',
+        controller: 'EleccionCtrl'
+      }
+    }
+  })
+
+  .state('tab.imagen', {
+      url: '/imagen',
+      views: {
+        'tab-inicio': {
+          templateUrl: 'templates/tab-imagen.html',
+          controller: 'ImagenCtrl'
+        }
+      }
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/inicio');
