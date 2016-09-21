@@ -25,35 +25,27 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('EleccionCtrl', function($scope, $state, $stateParams, $cordovaFile) {
-  $scope.usuario = JSON.parse($stateParams.usuario);
-  $scope.eleccion = [];
-  try
-  {
-    $cordovaFile.checkDir(cordova.file.dataDirectory, "archivos/"+usuario)
-      .then(function (success) {
-        $cordovaFile.checkFile(cordova.file.dataDirectory, "archivos/"+usuario+"/eleccion.txt")
-          .then(function (success) {
-            $cordovaFile.readAsText(cordova.file.dataDirectory, "archivos/"+usuario+"/eleccion.txt")
-              .then(function (success) {
-                  $scope.eleccion = success;
-              }, function (error) {
-                  console.info("ERROR READ FILE",error);
-              });
-          }, function (error) {
-            console.info("ERROR CHECK FILE",error);
-          });
-      }, function (error) {
-        console.info("ERROR CHECK DIR",error);
-      });
-  }
-  catch(error)
-  {
-    alert(error);
-  }
+.controller('EleccionCtrl', function($scope, $state, $stateParams, $ionicPlatform, $cordovaFile) {
+  $ionicPlatform.ready(function() {
+    $scope.usuario = JSON.parse($stateParams.usuario);
+    $scope.eleccion = [];
+    try
+    {
+      $cordovaFile.readAsText(cordova.file.externalApplicationStorageDirectory, "archivo.txt")
+            .then(function (success) {
+                $scope.eleccion = JSON.parse(success);
+            }, function (error) {
+                console.info("ERROR READ FILE",error);
+            });
+    }
+    catch(error)
+    {
+      alert(error);
+    }
+  });
 })
 
-.controller('JuegoCtrl', function($scope, $state, $stateParams, $cordovaNativeAudio, $cordovaFile) {
+.controller('JuegoCtrl', function($scope, $state, $stateParams, $ionicPlatform, $ionicPopup, $cordovaNativeAudio, $cordovaFile) {
   $scope.usuario = JSON.parse($stateParams.usuario);
   $scope.elegido = [];
   try
@@ -112,76 +104,40 @@ angular.module('starter.controllers', [])
     console.log("la pc no suena");
   }
 
-  $scope.Vaca = function(){
+  $scope.Reproducir = function(opcion){
     try 
     {
-      $cordovaNativeAudio.play('vaca');
-      $scope.elegido.push("vaca");
+      switch (opcion)
+      {
+        case "vaca":
+            $cordovaNativeAudio.play('vaca');
+            $scope.elegido.push("vaca");
+          break;
+        case "pato":
+            $cordovaNativeAudio.play('pato');
+            $scope.elegido.push("pato");
+          break;
+        case "oveja":
+            $cordovaNativeAudio.play('oveja');
+            $scope.elegido.push("oveja");
+          break;
+        case "caballo":
+            $cordovaNativeAudio.play('caballo');
+            $scope.elegido.push("caballo");
+          break;
+        case "cerdo":
+            $cordovaNativeAudio.play('cerdo');
+            $scope.elegido.push("cerdo");
+          break;
+        case "gallo":
+            $cordovaNativeAudio.play('gallo');
+            $scope.elegido.push("gallo");
+          break;
+      }
     }
     catch(error)
     {
-      console.log("la pc no suena");
-      $scope.elegido.push("vaca");
-    }
-  }
-
-  $scope.Pato = function(){
-    try 
-    {
-      $cordovaNativeAudio.play('pato');
-      $scope.elegido.push("pato");
-    }
-    catch(error)
-    {
-      console.log("la pc no suena");
-    }
-  }
-
-  $scope.Oveja = function(){
-    try 
-    {
-      $cordovaNativeAudio.play('oveja');
-      $scope.elegido.push("oveja");
-    }
-    catch(error)
-    {
-      console.log("la pc no suena");
-    }
-  }
-
-  $scope.Caballo = function(){
-    try 
-    {
-      $cordovaNativeAudio.play('caballo');
-      $scope.elegido.push("caballo");
-    }
-    catch(error)
-    {
-      console.log("la pc no suena");
-    }
-  }
-
-  $scope.Cerdo = function(){
-    try 
-    {
-      $cordovaNativeAudio.play('cerdo');
-      $scope.elegido.push("cerdo");
-    }
-    catch(error)
-    {
-      console.log("la pc no suena");
-    }
-  }
-
-  $scope.Gallo = function(){
-    try 
-    {
-      $cordovaNativeAudio.play('gallo');
-      $scope.elegido.push("gallo");
-    }
-    catch(error)
-    {
-      console.log("la pc no suena");
+      alert(error);
     }
   }
 
@@ -191,35 +147,37 @@ angular.module('starter.controllers', [])
   };
 
   $scope.GuardarEleccion= function(){
-    GuardarArchivo(JSON.stringify($scope.elegido))
-  }
-
-  function GuardarArchivo(eleccion){
-    
-      $cordovaFile.checkDir(cordova.file.dataDirectory, "archivos/"+$scope.usuario.nombre)
-        .then(function (success) {
-          $cordovaFile.writeFile(cordova.file.dataDirectory, "archivos/"+$scope.usuario.nombre+"/eleccion.txt", eleccion, true)
-            .then(function (success) {
-            }, function (error) {
-            });
-
-        }, function (error) {
-          $cordovaFile.createDir(cordova.file.dataDirectory, "archivos/"+$scope.usuario.nombre, false)
+    $ionicPlatform.ready(function() {
+      try
+      {
+        $scope.archivar = {};
+        $scope.archivar.usuario = $scope.usuario.nombre;
+        $scope.archivar.eleccion = $scope.elegido;
+        var eleccion = JSON.stringify($scope.archivar);
+        $cordovaFile.createFile(cordova.file.externalApplicationStorageDirectory, "archivo.txt", true)
           .then(function (success) {
-            $cordovaFile.writeFile(cordova.file.dataDirectory, "archivos/"+$scope.usuario.nombre+"/eleccion.txt", eleccion, true)
-            .then(function (success) {
-            }, function (error) {
-            });
-
+            // success
           }, function (error) {
+            // error
           });
-
-        });
-   /* }
-    catch(error)
-    {
-      alert(error);
-    }*/
+        $cordovaFile.writeFile(cordova.file.externalApplicationStorageDirectory, "archivo.txt", eleccion, true)
+          .then(function (success) {
+              $ionicPopup.alert({
+              title: 'Exito',
+              template: "Se ha guardado el archivo" .concat(eleccion)
+            });
+          }, function (error) {
+                $ionicPopup.alert({
+              title: 'Error',
+              template: "No se ha guardado el archivo, " .concat(error)
+            });
+          });
+      }
+      catch(error)
+      {
+        alert(error);
+      }
+    });
   }
 })
 
@@ -227,6 +185,46 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ImagenCtrl', function($scope) {
+.controller('ImagenCtrl', function($scope, $state, $stateParams, $ionicPlatform, $cordovaDeviceMotion) {
+  $ionicPlatform.ready(function() {
+    $scope.opciones = { frequency: 100 };
+    $scope.ubicacion = {
+        x : null,
+        y : null,
+        z : null,
+        timestamp : null
+    }
+    
+    $scope.watch = $cordovaDeviceMotion.watchAcceleration($scope.opciones);
 
+    $scope.watch.then(
+      null,
+      function(error) {
+      // An error occurred
+      },
+      function(result) {
+        if(result.x > 10){
+          $scope.ubicacion.x = 1;
+          $scope.imagen = "img/izquierda.png"; 
+        }else if(result.x < -10){
+          $scope.ubicacion.x = -1;
+        }else{
+          $scope.ubicacion.x = 0;
+        }
+
+        if(result.y > 10){
+          $scope.ubicacion.y = 1;
+          $scope.imagen = "img/abajo.png"; 
+        }else if(result.y < -10){
+          $scope.ubicacion.y = -1;
+          $scope.imagen = "img/arriba.png"; 
+        }else{
+          $scope.ubicacion.y = 0;
+        }
+
+        var timeStamp = result.timestamp;
+      }
+    )
+
+  });
 });

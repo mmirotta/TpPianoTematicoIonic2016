@@ -1,7 +1,8 @@
 <ion-view view-title="Inicio">
   <ion-content class="bodyJuego">
     <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="mostrar in eleccion" type="item-text-wrap" >
-      <p><b>{{mostrar}}</p>
+      <h1>{{mostrar.usuario}}</h1>
+      <p>{{mostrar.eleccion}}</p>
     </ion-item>
   </ion-content>
 </ion-view>
