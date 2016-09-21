@@ -1,10 +1,11 @@
 <ion-view view-title="Ingreso">
   <ion-content class="bodyJuego" scroll="false">
     <div class="padding">
-      <input type="text" class="inputIngresar" name="txtNombre" placeholder="ingresar usuario" ng-model="usuario.nombre">
-      <button class="button button-block button-dark buttonIngresar" ng-click="Ingresar()" ng-disabled="usuario.nombre == ''">
-      Jugar
-      </button>
+      <img style="position:absolute; border-radius:7px;
+                        width: {{imagenOpciones.width}}%;
+                        height: {{imagenOpciones.height}}%;
+                        top: {{imagenOpciones.x}}px;
+                        left: {{imagenOpciones.y}}px;" src="{{imagen}}">
     </div>
   </ion-content>
 </ion-view>
