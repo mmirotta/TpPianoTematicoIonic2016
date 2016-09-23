@@ -55,7 +55,7 @@ angular.module('starter.controllers', [])
     .then(function (msg) {
       console.log(msg);
     }, function (error) {
-      alert(error);
+      console.log(error);
     });
 
     $cordovaNativeAudio
@@ -63,7 +63,7 @@ angular.module('starter.controllers', [])
     .then(function (msg) {
       console.log(msg);
     }, function (error) {
-      alert(error);
+      console.log(error);
     });
 
     $cordovaNativeAudio
@@ -71,7 +71,7 @@ angular.module('starter.controllers', [])
     .then(function (msg) {
       console.log(msg);
     }, function (error) {
-      alert(error);
+      console.log(error);
     });
 
     $cordovaNativeAudio
@@ -79,7 +79,7 @@ angular.module('starter.controllers', [])
     .then(function (msg) {
       console.log(msg);
     }, function (error) {
-      alert(error);
+      console.log(error);
     });
 
     $cordovaNativeAudio
@@ -87,7 +87,7 @@ angular.module('starter.controllers', [])
     .then(function (msg) {
       console.log(msg);
     }, function (error) {
-      alert(error);
+      console.log(error);
     });
 
     $cordovaNativeAudio
@@ -95,7 +95,7 @@ angular.module('starter.controllers', [])
     .then(function (msg) {
       console.log(msg);
     }, function (error) {
-      alert(error);
+      console.log(error);
     });
 
   }
@@ -176,7 +176,7 @@ angular.module('starter.controllers', [])
               .then(function (success) {
                   $ionicPopup.alert({
                   title: 'Exito',
-                  template: "Se ha guardado el archivo" .concat(eleccion)
+                  template: "Se ha guardado las melodias elegidas" 
                 });
               }, function (error) {
                     $ionicPopup.alert({
@@ -188,9 +188,6 @@ angular.module('starter.controllers', [])
                 // error
               });
           });
-
-        
-        
       }
       catch(error)
       {
