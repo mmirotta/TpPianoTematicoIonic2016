@@ -157,11 +157,11 @@ angular.module('starter.controllers', [])
 
         $cordovaFile.checkFile(cordova.file.externalApplicationStorageDirectory, "archivoPiano.txt")
           .then(function (success) {
-            $cordovaFile.writeExistingFile(cordova.file.externalApplicationStorageDirectory, "archivoPiano.txt", "/" + eleccion)
+            $cordovaFile.writeExistingFile(cordova.file.externalApplicationStorageDirectory, "archivoPiano.txt", eleccion)
               .then(function (success) {
                 $ionicPopup.alert({
                   title: 'Exito',
-                  template: "Se ha guardado el archivo" .concat(eleccion)
+                  template: "Se ha guardado el archivo"
                 });
               }, function (error) {
                     $ionicPopup.alert({
@@ -172,7 +172,7 @@ angular.module('starter.controllers', [])
           }, function (error) {
             $cordovaFile.createFile(cordova.file.externalApplicationStorageDirectory, "archivoPiano.txt", false)
               .then(function (success) {
-                $cordovaFile.writeFile(cordova.file.externalApplicationStorageDirectory, "archivoPiano.txt", "/" + eleccion, true)
+                $cordovaFile.writeFile(cordova.file.externalApplicationStorageDirectory, "archivoPiano.txt", eleccion, true)
               .then(function (success) {
                   $ionicPopup.alert({
                   title: 'Exito',
